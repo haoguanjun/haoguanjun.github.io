@@ -62,6 +62,30 @@ function removeItem( index )
     showItems();
 }
 
+function saveToLocal()
+{
+    var data = {
+        data: todoList
+    };
+
+    // JSON  javascript object notation
+    // stringify 将内存中的 object 转换成字符串的表示形式
+    localStorage.setItem("todo", JSON.stringify(data) );
+}
+
+function loadFromLocal()
+{
+    // 从 local storge 中读取的是字符串，转换回对象
+    var data = localStorage.getItem("todo");
+
+    if( data ) {
+        var obj = JSON.parse(data);
+
+        // 恢复数据
+        todoList = obj.data;
+    }
+}
+
 // ---------------------------
 
 function main() {
@@ -74,6 +98,21 @@ function main() {
         "click",
         saveToDoItem
     )
+
+    var btnSaveToLocal = document.querySelector("#btnSaveLocal");
+    btnSaveToLocal.addEventListener(
+        "click",
+        saveToLocal
+    );
+
+    // auto save
+    // ms
+    setInterval( saveToLocal, 5 * 1000 );
+
+    // 
+    loadFromLocal();
+
+    showItems();
 }
 
 // 相当于主程序入口
