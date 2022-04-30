@@ -19,10 +19,12 @@ function saveToDoItem() {
 
     var txtSubject = document.querySelector("#txtSubject");
     var txtDetail = document.querySelector("#txtDetail");
+    var cbx = document.querySelector("#cbx");
 
     var item = {
         subject: txtSubject.value,
-        detail: txtDetail.value
+        detail: txtDetail.value,
+        important: cbx.checked
     };
 
     todoList.push( item );
@@ -44,12 +46,20 @@ function showItems()
        lstTodo.innerHTML = "";
    
        for(var index = 0; index < todoList.length; index++) {
-           lstTodo.innerHTML += "Topic: " + todoList[index].subject 
-               + " Detail: " + todoList[index].detail
-               + "<button type='button' class='btn btn-sm' onclick='removeItem(" 
-               + index
-               + ")' >Remove</button>"
-               + "<br/>";
+           var item = 
+            '<div class="row">'
+               +    "<div class='col-3'>Topic: " + todoList[index].subject + "</div>" 
+               +    "<div class='col-3'> Detail: " + todoList[index].detail + "</div>"
+               +    "<div class='col>" 
+               +       "<button type='button' class='btn btn-sm' onclick='removeItem(" 
+               +          index
+               +       ")' > Remove </button>"
+               +    "</div>"
+               + "</div>";
+        
+            console.info( item );
+
+            lstTodo.innerHTML += item;
        }
 }
 
